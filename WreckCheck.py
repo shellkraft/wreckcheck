@@ -32,11 +32,11 @@ def check_vulnerabilities(regex, message):
     result = ""
     for match in matches:
         line_number = code[:match.start()].count('\n') + 1
-        result += f"[*] Potential {message} vulnerability found in line {line_number}: {match.group(0)}\n"
+        result += f"[!] Potential {message} vulnerability found in line {line_number}: {match.group(0)}\n"
     if result:
         return result
     else:
-        return f"[+] No potential {message} vulnerabilities found in code."
+        return f"[OK] No potential {message} vulnerabilities found in code."
 
 
 # Functions to check for specific vulnerabilities
