@@ -7,4 +7,5 @@
 🔗INSTALLATION:
 
 1) git clone https://github.com/bassicksoul/wreckcheck/
-2) python3 WreckCheck.py
+2) pip install -r requirements.txt
+3) python3 WreckCheck.py
