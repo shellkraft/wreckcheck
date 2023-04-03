@@ -7,109 +7,71 @@ file_path = input("Enter the file path of the code you want to check: ")
 with open(file_path, 'r') as file:
     code = file.read()
 
-def check_input_validation(code):
+
+# Function to check for vulnerabilities using a regular expression
+def check_vulnerabilities(regex, message):
+    matches = re.finditer(regex, code)
+    result = ""
+    for match in matches:
+        line_number = code[:match.start()].count('\n') + 1
+        result += f"Potential {message} vulnerability found in line {line_number}: {match.group(0)}\n"
+    if result:
+        return result
+    else:
+        return f"No potential {message} vulnerabilities found in code."
+
+
+# Functions to check for specific vulnerabilities
+def check_input_validation_vulnerability():
     regex = r"gets\("
-    matches = re.finditer(regex, code)
-    result = ""
-    for match in matches:
-        result += f"Potential input validation vulnerability found in line {code[:match.start()].count('\n')+1}: {match.group(0)}\n"
-    if result:
-        return result
-    else:
-        return "No potential input validation vulnerabilities found in code."
+    message = "input validation"
+    return check_vulnerabilities(regex, message)
 
 
-def check_buffer_overflow(code):
+def check_buffer_overflow_vulnerability():
     regex = r"(strcpy|strcat|sprintf|vsprintf)\("
-    matches = re.finditer(regex, code)
-    result = ""
-    for match in matches:
-        result += f"Potential buffer overflow vulnerability found in line {code[:match.start()].count('\n')+1}: {match.group(0)}\n"
-    if result:
-        return result
-    else:
-        return "No potential buffer overflow vulnerabilities found in code."
+    message = "buffer overflow"
+    return check_vulnerabilities(regex, message)
 
 
-def check_format_string(code):
+def check_format_string_vulnerability():
     regex = r"printf\("
-    matches = re.finditer(regex, code)
-    result = ""
-    for match in matches:
-        result += f"Potential format string vulnerability found in line {code[:match.start()].count('\n')+1}: {match.group(0)}\n"
-    if result:
-        return result
-    else:
-        return "No potential format string vulnerabilities found in code."
+    message = "format string"
+    return check_vulnerabilities(regex, message)
 
 
-def check_command_injection(code):
+def check_command_injection_vulnerability():
     regex = r"(popen|system|exec)\("
-    matches = re.finditer(regex, code)
-    result = ""
-    for match in matches:
-        result += f"Potential command injection vulnerability found in line {code[:match.start()].count('\n')+1}: {match.group(0)}\n"
-    if result:
-        return result
-    else:
-        return "No potential command injection vulnerabilities found in code."
+    message = "command injection"
+    return check_vulnerabilities(regex, message)
 
 
-def check_sql_injection(code):
+def check_sql_injection_vulnerability():
     regex = r"(\.execute\(|\.executemany\(|SELECT\s.*WHERE\s.*=\s*[\"']?\+\s*)"
-    matches = re.finditer(regex, code)
-    result = ""
-    for match in matches:
-        result += f"Potential SQL injection vulnerability found in line {code[:match.start()].count('\n')+1}: {match.group(0)}\n"
-    if result:
-        return result
-    else:
-        return "No potential SQL injection vulnerabilities found in code."
+    message = "SQL injection"
+    return check_vulnerabilities(regex, message)
 
 
-def check_xss(code):
+def check_xss_vulnerability():
     regex = r"document\.write\(|innerHTML\s*=\s*|\".*?\";?\s*\+\s*.*?\s*\+\s*.*?\s*\+"
-    matches = re.finditer(regex, code)
-    result = ""
-    for match in matches:
-        result += f"Potential cross-site scripting (XSS) vulnerability found in line {code[:match.start()].count('\n')+1}: {match.group(0)}\n"
-    if result:
-        return result
-    else:
-        return "No potential cross-site scripting (XSS) vulnerabilities found in code."
+    message = "cross-site scripting (XSS)"
+    return check_vulnerabilities(regex, message)
 
 
-def check_authentication(code):
+def check_authentication_vulnerability():
     regex = r"(password|passwd|secret)\s*=\s*[\"'].*?[\"']"
-    matches = re.finditer(regex, code)
-    result = ""
-    for match in matches:
-        result += f"Potential authentication vulnerability found in line {code[:match.start()].count('\n')+1}: {match.group(0)}\n"
-        if result:
-        	return result
-        	else:
-        		return "No potential authentication vulnerability found in code. "
-        		
-def secure_code_check(file_path):
-    with open(file_path, 'r') as f:
-        code = f.read()
+    message = "authentication"
+    return check_vulnerabilities(regex, message)
 
-    print("Checking for potential vulnerabilities in file:", file_path)
-    print("-" * 50)
 
-    print(check_input_validation(code))
-    print(check_buffer_overflow(code))
-    print(check_format_string(code))
-    print(check_command_injection(code))
-    print(check_sql_injection(code))
-    print(check_xss(code))
-    print(check_authentication(code))
-    print(check_crypto(code))
-    print(check_error_handling(code))
-    print(check_permissions(code))
-
-    print("-" * 50)
-    print("Secure coding guidelines check")
+# Call the vulnerability checking functions and print the results
+print(check_input_validation_vulnerability())
+print(check_buffer_overflow_vulnerability())
+print(check_format_string_vulnerability())
+print(check_command_injection_vulnerability())
+print(check_sql_injection_vulnerability())
+print(check_xss_vulnerability())
+print(check_authentication_vulnerability())
 
 
         	
