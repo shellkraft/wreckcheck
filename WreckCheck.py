@@ -5,7 +5,7 @@ import pyfiglet
 ascii_banner = pyfiglet.figlet_format("WreckCheck")
 print(ascii_banner)
 print("Version: 1.0")
-print("Created by: Sneharghya")
+print("Created by: B4PHOM3T")
 
 
 # Get file path from user input
