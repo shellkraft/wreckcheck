@@ -72,6 +72,3 @@ print(check_command_injection_vulnerability())
 print(check_sql_injection_vulnerability())
 print(check_xss_vulnerability())
 print(check_authentication_vulnerability())
-
-
-        	
