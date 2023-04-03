@@ -1,10 +1,17 @@
 import re
 import sys
+import pyfiglet
+
+ascii_banner = pyfiglet.figlet_format("WreckCheck")
+print(ascii_banner)
+print("Version: 1.0")
+print("Created by: Sneharghya")
+
 
 # Get file path from user input
 while True:
     try:
-        file_path = input("[*] Enter the file path of the code you want to check: ")
+        file_path = input("\n[*] Enter the file path of the code you want to check: ")
         with open(file_path, 'r') as file:
             code = file.read()
         break
