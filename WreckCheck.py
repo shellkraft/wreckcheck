@@ -1,11 +1,22 @@
 import re
+import sys
 
 # Get file path from user input
-file_path = input("Enter the file path of the code you want to check: ")
-
-# Open the file and read the code
-with open(file_path, 'r') as file:
-    code = file.read()
+while True:
+    try:
+        file_path = input("[*] Enter the file path of the code you want to check: ")
+        with open(file_path, 'r') as file:
+            code = file.read()
+        break
+    except FileNotFoundError:
+        print("[-] Error: File not found. Please enter a valid file path.")
+    except Exception as e:
+        print("[-] An error occurred while opening the file.:")
+        print(e)
+        print("Make sure you are providing the correct file path.")
+    except KeyboardInterrupt:
+        print("\n[-] Keyboard interrupt detected. Exiting...")
+        sys.exit(1)
 
 
 # Function to check for vulnerabilities using a regular expression
@@ -14,11 +25,11 @@ def check_vulnerabilities(regex, message):
     result = ""
     for match in matches:
         line_number = code[:match.start()].count('\n') + 1
-        result += f"Potential {message} vulnerability found in line {line_number}: {match.group(0)}\n"
+        result += f"[*] Potential {message} vulnerability found in line {line_number}: {match.group(0)}\n"
     if result:
         return result
     else:
-        return f"No potential {message} vulnerabilities found in code."
+        return f"[+] No potential {message} vulnerabilities found in code."
 
 
 # Functions to check for specific vulnerabilities
