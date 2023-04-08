@@ -2,7 +2,6 @@ import re
 import sys
 from colorama import Fore
 import time
-import requests
 
 # banner
 print(Fore.CYAN + '''
